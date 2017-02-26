@@ -77,9 +77,11 @@ p指令等待点击换页[p]
 [er]
 [locate x=100 y=100]locate改变文字坐标到(100，100)[l][r]
 [locate x=20 y=20]回到系统默认(20，20)[l][r]
+[er]
 //--------------------------------------------------------------------------------------------------
 [messagelayer index=9999 active=true][addto index=9999 target=basic_layer]
-在9999号消息层，显示文字，必须addto到有效的target，例如basic_layer[l][r]
+在9999号消息层，显示文字[r]
+必须addto到有效的target，例如basic_layer[l][r]
 [messagelayer index=9999 active=false]
 在原有的layer上执行active=false，什么都不会发生。[l][r]
 [textstyle color=#FF0000]修改当前消息层的字体颜色[l][r]
@@ -103,3 +105,4 @@ p指令等待点击换页[p]
 [texton time=3000][click]
 文字隐显效果结束，本质是文字窗口的Action[p]
 //--------------------------------------------------------------------------------------------------
+演示结束
