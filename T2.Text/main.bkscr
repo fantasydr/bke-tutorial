@@ -1,0 +1,105 @@
+﻿*main
+
+//--------------------------------------------------------------------------------------------------
+[animate index=4003 file="PageBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=4003 follow=true]
+设定等待时的动画textcursor[l][r]
+
+[animate index=4004 file="PageBreak_a" mode="horizontal" frame=16 interval=10 loop="bouncing"]
+[textcursor index=4004 follow=false pos=[100, 0]]
+指定textcursor的位置[l][r]
+
+[animate index=4002 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=4002 follow=true]
+更换textcursor，恢复follow效果[l][r]
+[er]
+//--------------------------------------------------------------------------------------------------
+[sprite index=5000 file="BG01a"][addto target=basic_layer index=5000]
+增加背景图片用于对比文字窗口效果[p]
+
+[textwindow color=#800000]
+默认文字窗口颜色修改[p]
+
+[textwindow color=#800000 opacity=196]
+修改透明度为196[p]
+
+[textwindow color=#800000 pos=[100,100] ]
+修改文字窗口pos[p]
+
+[textwindow color=#800000 rect=[20,100,300,400] ]
+修改文字窗口rect[p]
+换行会受到文字窗口的影响，窗口变窄会导致提前换行。[p]
+
+[textwindow color=#800000 rect=[20,100,300,400] xinterval=20 yinterval=30]
+修改文字x,y间距[p]
+
+//此处插入单行脚本用来获取屏幕大小
+#var scrW=System.resolutionSize[0];var scrH=System.resolutionSize[1];
+[remove index=5000 delete=true]
+[textwindow color=#000000 opacity=0 rect=[20,20,scrW-40,scrH-40] pos=[0,0] xinterval=0 yinterval=12]
+恢复默认值，目前消除背景只能靠opacity=0[p]
+//--------------------------------------------------------------------------------------------------
+[text text="用指令显示字符……"]
+直接写也可以（此处换行无效）
+单独用r指令换行[r]
+l指令等待点击停顿，不换行...[l]
+r指令配合l等待并换行[l][r]
+p指令等待点击换页[p]
+换页后自动清屏文字，[r]
+接下来click等待点击，然后er文字清屏。
+[click][er]
+//--------------------------------------------------------------------------------------------------
+一堆文字效果：[r][r]
+[ruby text="头顶注释" size=8 char=2]
+文字注释[r][r]
+[i]斜体i[i][r]
+[b]黑体b[b][r]
+[s]删除线s[s][r]
+[u]下划线u[u][r]
+[click][er]
+//--------------------------------------------------------------------------------------------------
+储存字体样式[l][storefont][r]
+[textstyle shadow=true shadowcolor=#FF0000]带红色阴影了[l]
+[restorefont]字体恢复了[l][r]
+[textstyle stroke=true strokecolor=#FF0000]带红色描边了[l]
+[restorefont]字体恢复了[l][r]
+[textstyle size=30 color=#FF0000]红色大字符[l]
+[restorefont]字体恢复了[l][r]
+[textstyle bold=true under=true]黑体下划线[l]
+[restorefont]字体恢复了[l][r]
+[textstyle italic=true strike=true]斜体删除线[l]
+[restorefont]字体恢复了[l][r]
+[textstyle size=48 color=#FF0000 stroke=true strokecolor=#00FF00 shadow=true shadowcolor=#0000FF italic=true bold=true under=true strike=true]
+全套文字效果[l]
+[restorefont]字体恢复了[l][r]
+字太大又占了一行[l][r]
+//--------------------------------------------------------------------------------------------------
+[er]
+[locate x=100 y=100]locate改变文字坐标到(100，100)[l][r]
+[locate x=20 y=20]回到系统默认(20，20)[l][r]
+//--------------------------------------------------------------------------------------------------
+[messagelayer index=9999 active=true][addto index=9999 target=basic_layer]
+在9999号消息层，显示文字，必须addto到有效的target，例如basic_layer[l][r]
+[messagelayer index=9999 active=false]
+在原有的layer上执行active=false，什么都不会发生。[l][r]
+[textstyle color=#FF0000]修改当前消息层的字体颜色[l][r]
+[messagelayer index=message_layer active=true]
+回到默认消息层，显示文字[l][r]
+[messagelayer index=9999 active=true]
+再次回到9999，点击换页[p]
+[messagelayer index=message_layer active=true]
+再次回到默认消息层[p]
+//--------------------------------------------------------------------------------------------------
+[textspeed interval=0]
+修改文字速度为最慢，这段文字显示的非常慢。[p]
+[textspeed interval=100]
+修改文字速度为最快，这段文字显示的非常快。[p]
+[textspeed interval=50]
+恢复默认速度50，这段文字显示正常。[p]
+//--------------------------------------------------------------------------------------------------
+测试文字显示隐藏textoff和texton[l][r]
+3秒钟的文字fadeout，点击后是3秒钟的文字fadein。
+[textoff time=3000][click]
+[texton time=3000][click]
+文字隐显效果结束，本质是文字窗口的Action[p]
+//--------------------------------------------------------------------------------------------------
