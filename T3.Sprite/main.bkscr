@@ -1,0 +1,78 @@
+﻿*main
+
+// 加上描边效果
+[textstyle stroke=true strokecolor=0x000000]
+// 加上指针
+[animate index=4000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=4000 follow=true]
+
+//--------------------------------------------------------------------------------------------------
+[sprite index=1000 file="BG01a"]
+创建一个sprite，但并不会显示[l][r]
+[addto index=1000 target=basic_layer modal=false]
+加入到basic_layer将会显示此图片[l][r]
+
+[sprite index=2000 file="fg01_01" rect=[0,0,320,300] ]
+创建一个sprite，只截取部分图片[l][r]
+[addto index=2000 target=basic_layer pos=[400, 20] zorder=50]
+加入到basic_layer的指定位置，z轴50[p]
+//--------------------------------------------------------------------------------------------------
+[layer index=3000 width=200 height=100 color=0x800000 opacity=128]
+创建一个半透明的红色layer，并不会显示[l][r]
+[addto index=3000 target=basic_layer pos=[300,100] zorder=10]
+加入到basic_layer的指定位置，z轴10[l][r]
+[addto index=3000 target=basic_layer pos=[300,100] zorder=50]
+修改该层的z轴为50[l][r]
+[zorder index=3000 set=10]
+或者使用zorder指令直接修改[p]
+//--------------------------------------------------------------------------------------------------
+接下来移除layer[l][r]
+[remove index=3000]
+未删除资源的话，可以重新add到basic_layer[l][r]
+[addto index=3000 target=basic_layer pos=[300,100] zorder=50]
+接下来移除layer，并删除资源[l][r]
+[remove index=3000 delete=true]
+[addto index=3000 target=basic_layer]
+尝试add一个已经删除或不存在的精灵会报错[p]
+//--------------------------------------------------------------------------------------------------
+[sprite index=2001 file="fg01_01"]
+[addto index=2000 target=2001]
+[addto index=2001 target=1000 pos=[0, 100]]
+创建一个全身像，将半身像add到其中，并显示全身像[l][r]
+半身像在basic_layer中的相对坐标被保留[p]
+//--------------------------------------------------------------------------------------------------
+[removeall index=1000]
+用removeall移除所有子对象，图像不可见，但层级关系保留[l][r]
+[addto index=2001 target=1000 pos=[0, 100]]
+重新add到背景层，图片恢复[l][r]
+[removeall index=1000 recursive=true]
+用removeall递归移除所有子对象，图像不可见，层级关系也消失[l][r]
+[addto index=2001 target=1000 pos=[0, 100]]
+重新add到basic_layer，只有全身像[l][r]
+接下来删除所有背景层上的图像，并清除资源[l][r]
+[removeall index=1000 recursive=true delete=true]
+[addto index=2001 target=1000]
+尝试add一个已经删除或不存在的精灵会报错[p]
+//--------------------------------------------------------------------------------------------------
+[layer index=3001 width=200 height=200 color=0x008000 opacity=128]
+[addto index=3001 target=basic_layer pos=[200,200]]
+[layer index=3000 width=100 height=100 color=0x800000 opacity=255]
+[addto index=3000 target=3001]
+创建一个红色layer，放在半透明绿色图像的（0,0）坐标处[l][r]
+[anchor index=3000 set="center"]
+用anchor改变锚点为center中心对齐[l][r]
+[anchor index=3000 set="topleft"]
+用anchor改变锚点为topleft左上角对齐[l][r]
+[anchor index=3000 set="center" keep=true]
+用anchor改变锚点为center中心对齐，但保持对象位置不变[l][r]
+[anchor index=3000 set="topleft"]
+用anchor改变锚点为topleft左上角对齐，对象将偏移[p]
+//--------------------------------------------------------------------------------------------------
+[info file="BG01a" get=f.bg01a]
+[infoex index=1000 get=f.bg01aex]
+#log(f.bg01a);
+#log(f.bg01aex);
+用info指令获取了图片信息，打印在控制台上[p]
+//--------------------------------------------------------------------------------------------------
+spriteopt和particle将和其他UI控件一起演示[l][r]
+演示结束[l]
