@@ -69,7 +69,8 @@ p指令等待点击换页[p]
 修改文字x,y间距[p]
 
 //此处插入单行脚本用来获取屏幕大小
-#var scrW=System.resolutionSize[0];var scrH=System.resolutionSize[1];
+#var scrW=System.resolutionSize[0];
+#var scrH=System.resolutionSize[1];
 [remove index=5000 delete=true]
 [textwindow color=#000000 opacity=0 rect=[20,20,scrW-40,scrH-40] pos=[0,0] xinterval=0 yinterval=12]
 恢复默认值，目前消除背景只能靠opacity=0[p]
