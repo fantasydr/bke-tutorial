@@ -35,10 +35,10 @@
 [addto index=3000 target=basic_layer]
 尝试add一个已经删除或不存在的精灵会报错[p]
 //--------------------------------------------------------------------------------------------------
-[sprite index=2001 file="fg01_01"]
+[layer index=2001 width=300 height=500 color=0x000000 opacity=128]
 [addto index=2000 target=2001]
 [addto index=2001 target=1000 pos=[0, 100]]
-创建一个全身像，将半身像add到其中，并显示全身像[l][r]
+创建一个黑色层，将半身像add到其中，并显示黑色层[l][r]
 半身像在basic_layer中的相对坐标被保留[p]
 //--------------------------------------------------------------------------------------------------
 [removeall index=1000]
@@ -48,7 +48,7 @@
 [removeall index=1000 recursive=true]
 用removeall递归移除所有子对象，图像不可见，层级关系也消失[l][r]
 [addto index=2001 target=1000 pos=[0, 100]]
-重新add到basic_layer，只有全身像[l][r]
+重新add到basic_layer，只有黑色层[l][r]
 接下来删除所有背景层上的图像，并清除资源[l][r]
 [removeall index=1000 recursive=true delete=true]
 [addto index=2001 target=1000]
