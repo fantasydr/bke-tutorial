@@ -1,0 +1,3 @@
+﻿*main
+[textsprite index=1000 text="HelloWorld! 123123123123123123123123123123123123123" width=100 color=0xFF0000 size=30 extrachar="..."]
+[addto index=1000 target=basic_layer]

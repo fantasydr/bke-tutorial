@@ -1,0 +1,66 @@
+﻿*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=50]
+
+// image used by the following tests
+[sprite index=1000 file='BG14a']
+
+//--------------------------------------------------------------------------------------------------
+[addto index=1000 target=basic_layer pos=[0,0]]
+在屏幕上显示一张已经创建好的图片。[l][r]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+[sprite index=9000 file='fg01_01']
+[effect target=1000 mode="multiply" masksp=9000 stretch=false]
+上添加multiply效果，使用9000号人物图片做叠加，也可以使用图片文件。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+
+//--------------------------------------------------------------------------------------------------
+[remove index=9000]
+[sprite index=9000 file='fg01_01']
+[effect target=1000 mode="add" masksp=9000 stretch=false]
+添加add效果，使用9000号人物图片做叠加，也可以使用图片文件。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+
+
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="mono" mono=0x800000]
+添加mono效果，褪色成红色[l][r]
+[effect target=1000 mode="delete" name="mono"]
+用delete指令删除这个图片上的mono效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="mono" mono=0x000080]
+添加mono效果，褪色成蓝色[l][r]
+[effect target=1000 mode="delete" index=0]
+用delete指令的index参数，删除刚刚加上去的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="gray"]
+添加gray效果，变成灰度图片[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="mask" mask="18.jpg"]
+添加mask效果，使用18.jpg做遮罩，也可用sprite。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+
+
+
+
+//--------------------------------------------------------------------------------------------------
+[layer index=5000 width=500 height=500 color=0xc0c0c0 opacity=255]
+[addto index=5000 target=basic_layer pos=[150,50]]
+添加一张灰色的背景layer[l][r]
+[addto index=9000 target=5000 pos=[200,100]]
+在layer上加一张图片，超出范围的部分也有显示[l][r]
+[effect target=5000 mode="scissor"]
+scissor效果，剪裁超出范围的图片。[p]
+[remove index=5000] // delete the layer
