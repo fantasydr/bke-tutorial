@@ -1,3 +1,100 @@
 ﻿*main
-[textsprite index=1000 text="HelloWorld! 123123123123123123123123123123123123123" width=100 color=0xFF0000 size=30 extrachar="..."]
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+[button index=4000 idle="dia_button" hover="dia_button_on" click="dia_button_click" disable="dia_button_disable" threshold=0]
+[addto index=4000 target=basic_layer pos=[200,50]]
+生成一个按钮，使用图片作为静止、鼠标悬停、点击和禁用的效果。[l][r]
+[spriteopt index=4000 disable=true]
+禁用按钮[l][r]
+[spriteopt index=4000 disable=false]
+恢复按钮[p]
+//--------------------------------------------------------------------------------------------------
+[textsprite index=1000 text="Button" width=200 height=40 color=0xFF0000 size=30]
+[textsprite index=1001 text="Hover" width=200 height=40 color=0xFF0000 size=30]
+[textsprite index=1002 text="Click" width=200 height=40 color=0xFF0000 size=30]
+[textsprite index=1003 text="Disable" width=200 height=40 color=0xFF0000 size=30]
+// use addto to show them on screen
 [addto index=1000 target=basic_layer]
+[addto index=1001 target=basic_layer pos=[0, 50]]
+[addto index=1002 target=basic_layer pos=[0, 100]]
+[addto index=1003 target=basic_layer pos=[0, 150]]
+在游戏中生成一些textsprite，用于显示文字的精灵。[l][r]
+// recover the position of these sprites
+[addto index=1001 target=basic_layer pos=[0, 0]]
+[addto index=1002 target=basic_layer pos=[0, 0]]
+[addto index=1003 target=basic_layer pos=[0, 0]]
+[buttonex index=4001 idle=1000 hover=1001 click=1002 disable=1003 threshold=0]
+[addto index=4001 target=basic_layer pos=[300,50]]
+使用文字精灵作为按钮的不同状态。[r]
+原有的精灵被删除，变成按钮的内部成员。[l][r]
+[spriteopt index=4001 disable=true]
+禁用按钮[l][r]
+[spriteopt index=4001 disable=false]
+恢复按钮[p]
+
+//--------------------------------------------------------------------------------------------------
+[slider index=5000 back="sample_slider" block="sample_sliderbutton" fore="sample_slider_fore"]
+[addto index=5000 target=basic_layer pos=[200,100]]
+生成一个滑动条，使用图片作为滑槽，滑块和上层滑块。[l][r]
+[slider index=5001 back="sample_slider" block="sample_sliderbutton" fore="sample_slider_fore" vertical=false length=0 isblockabove=true isblockinside=false vertical=false]
+[addto index=5001 target=basic_layer pos=[200,120]]
+配置各种参数来调整滑块的显示效果。[p]
+//--------------------------------------------------------------------------------------------------
+[textsprite index=1000 text="BACK----------------BACK" width=400 height=40 color=0x900000 size=30]
+[textsprite index=1001 text="【BLOCK】" width=300 height=40 color=0x009000 size=30]
+[textsprite index=1002 text="FORE----------------FORE" width=400 height=40 color=0x000090 size=30]
+// use addto to show them on screen
+[addto index=1000 target=basic_layer]
+[addto index=1001 target=basic_layer pos=[0, 50]]
+[addto index=1002 target=basic_layer pos=[0, 100]]
+在游戏中生成一些textsprite，用于显示文字的精灵。[l][r]
+// recover the position of these sprites
+[addto index=1001 target=basic_layer pos=[0, 0]]
+[addto index=1002 target=basic_layer pos=[0, 0]]
+[sliderex index=5002 back=1000 block=1001 fore=1002 isblockinside=false]
+[addto index=5002 target=basic_layer pos=[200,150]]
+使用文字精灵作为滑动条的不同状态。[r]
+原有的精灵被删除，变成滑动条的内部成员。[p]
+
+//--------------------------------------------------------------------------------------------------
+[checkbox index=6000 idle="sample_radio_0" checked="sample_radio_1"]
+[addto index=6000 target=basic_layer pos=[200,200]]
+生成一个checkbox，使用图片作为选中和非选中的样式。[l][r]
+[checkbox index=6001 idle="sample_radio_0" checked="sample_radio_1" state=true]
+[addto index=6001 target=basic_layer pos=[200,220]]
+生成一个默认选中的checkbox[p]
+//--------------------------------------------------------------------------------------------------
+[textsprite index=1000 text="[]-uncheck-" width=200 height=40 color=0x900000 size=30]
+[textsprite index=1001 text="[x]-checked-" width=200 height=40 color=0x009000 size=30]
+[addto index=1000 target=basic_layer]
+[addto index=1001 target=basic_layer pos=[0, 50]]
+在游戏中生成一些textsprite，用于显示文字的精灵。[l][r]
+// recover the position of these sprites
+[addto index=1001 target=basic_layer pos=[0, 0]]
+[checkboxex index=6002 idle=1000 checked=1001]
+[addto index=6002 target=basic_layer pos=[200,250]]
+使用文字精灵作为checkbox的不同状态。[r]
+原有的精灵被删除，变成checkbox的内部成员。[p]
+
+//--------------------------------------------------------------------------------------------------
+[inputbox index=7000 back="extra_bgmbutton_normal" text="write here..."]
+[addto index=7000 target=basic_layer pos=[200,300]]
+生成一个inputbox，使用图片作为背景，带有初始文本。[p]
+//--------------------------------------------------------------------------------------------------
+[textsprite index=1000 text="____Background____" width=400 height=40 color=0xFF0000 size=30]
+[addto index=1000 target=basic_layer]
+在游戏中生成一些textsprite，用于显示文字的精灵。[l][r]
+[inputboxex index=7001 back=1000 text="write here..."]
+[addto index=7001 target=basic_layer pos=[200,350]]
+使用文字精灵作为inputbox的背景。[r]
+原有的精灵被删除，变成按钮的内部成员。[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束
