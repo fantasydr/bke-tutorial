@@ -1,0 +1,85 @@
+﻿*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+[particle index=3000 file="sakuras.bkpsr"]
+[addto index=3000 target=basic_layer]
+使用particle创建粒子动画，详细参数说明请看文档。[l][r]
+[particleopt index=3000 updateparam=%["gravityy"=>-120,"emissionRate"=>8] ]
+使用particleopt改变速度和数量，粒子会重新播放。[l][r]
+[particleopt index=3000 paused=true]
+使用particleopt暂停粒子动画。[l][r]
+[particleopt index=3000 paused=false]
+使用particleopt恢复粒子动画。[p]
+[remove index=3000]
+
+//--------------------------------------------------------------------------------------------------
+[sprite file="num" index=1000]
+[addto index=1000 target=basic_layer]
+用sprite指令在屏幕上显示动画的图片资源[l][r]
+[animate index=2000 file="num" mode="horizontal" frame=3 row=4 interval=300 loop="forward"]
+[addto index=2000 target=basic_layer pos=[100, 100]]
+以此图片为帧动画水平序列，使用animation指令创建帧动画[l][r]
+[animate index=2000 mode="start"]
+创建后必须使用mode="start"，才可以播放[p]
+[animate index=2000 mode="cell" frame=5]
+使用mode="cell"，跳转到第5帧，动画会停止播放[l][r]
+[animate index=2000 mode="start"]
+使用mode="start"，重新开始播放动画[l][r]
+[animate index=2000 mode="stop"]
+使用mode="stop"，停止动画的播放[l][r]
+[animate index=2000 mode="start"]
+使用mode="start"，重新开始播放动画[p]
+//--------------------------------------------------------------------------------------------------
+[animate index=2001 file="num" mode="horizontal" frame=3 row=4 interval=80 loop="forward"]
+[addto index=2001 target=basic_layer pos=[125, 100]]
+[animate index=2001 mode="start"]
+调整interval参数让动画播放的更快。[l][r]
+
+[animate index=2002 file="num" mode="horizontal" frame=3 row=4 interval=300 loop="bouncing"]
+[addto index=2002 target=basic_layer pos=[150, 100]]
+[animate index=2002 mode="start"]
+调整loop参数，改变动画循环方式。[l][r]
+
+[animate index=2003 file="num" mode="vertical" frame=4 column=3 interval=300 loop="bouncing"]
+[addto index=2003 target=basic_layer pos=[175, 100]]
+[animate index=2003 mode="start"]
+调整mode参数为vertical，改变帧画面的索引方式。[p]
+//--------------------------------------------------------------------------------------------------
+[animate index=2004 file=["fg01_01", "fg01_02"] mode="multifiles" interval=300 loop="forward" delay=0]
+[addto index=2004 target=basic_layer pos=[400, 50]]
+[animate index=2004 mode="start"]
+通过读取多个文件组成动画。[l][r]
+
+//--------------------------------------------------------------------------------------------------
+动画精灵可以作为其他指令的输入，[l][r]
+[sprite file="LineBreak_a" index=1001]
+[addto index=1001 target=basic_layer pos=[0,250]]
+例如文字末尾的指针，也是animation指令所创建的动画精灵。[p]
+
+
+//--------------------------------------------------------------------------------------------------
+直接播放视频demo.avi[r]
+[video file="demo.avi" canskip=false]
+播放完毕[p]
+
+//--------------------------------------------------------------------------------------------------
+[animate index=2005 file="demo.avi" mode="video" loop="forward"]
+[addto index=2005 target=basic_layer pos=[0, 275]]
+[animate index=2005 mode="start"]
+创建动画视频demo.avi并播放[l][r]
+[animate index=2005 mode="stop"]
+停止视频动画。[p]
+
+//--------------------------------------------------------------------------------------------------
+//[spine index skeleton atlas zoom]
+播放Spine动画需要对应的资源和插件[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]

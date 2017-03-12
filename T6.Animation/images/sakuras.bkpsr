@@ -1,0 +1,31 @@
+%[
+	maxParticles:200,
+	angle:90,
+	speed:-10,
+	speedVariance:7,
+	angleVariance:0,
+	duration:-1,
+	startParticleSize:30,
+	startParticleSizeVariance:0,
+	finishParticleSize:30,
+	finishParticleSizeVariance:0,
+	sourcePositionx:512,
+	sourcePositiony:-30,
+	sourcePositionVariancex:512,
+	sourcePositionVariancey:0,
+	emitterType:0,
+	gravityy:-90,
+	radialAccelVariance:50,
+	particleLifespan:15,
+	emissionRate:3,
+	textureFileName:"sakuras.png",
+	textures:[
+		[0,0,20,15],
+		[40,0,20,15],
+		[80,0,20,15],
+		[120,0,40,30],
+		[160,0,40,30],
+		[200,0,40,30]
+	],
+	liverect:[0,0,System.resolutionSize[0],System.resolutionSize[1]]
+]
