@@ -1,0 +1,88 @@
+﻿*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+action指令可以操作sprite的各个属性，例如平移或旋转。[l][r]
+[sprite index=1000 file="fg01_01"]
+[addto index=1000 target=basic_layer pos=[300, 100]]
+添加一个图片精灵。[p]
+
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="stretch" lt=[10,10] rt=[280,50] rb=[200,480] lb=[30,400] ease=""]
+stretch将精灵变形[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="jump" time=1000 height=100 x=50 times=1]
+jump让精灵执行跳跃动作（time参数必要）[p]
+[action target=1000 mode="shake" time=100 range=10 vertical=false times=10]
+shake让精灵执行震动动作（time参数必要）[p]
+[action target=1000 mode="quake" time=1000 rangex=100 rangey=100 speed=1000]
+shake让精灵执行震动动作（time参数必要）[p]
+[action target=1000 mode="shaky3d" time=1000 hnum=10 vnum=10 offset=5 speed=1000]
+shaky3d将精灵做3d网格震动（time参数必要）[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="visible" visible=false]
+visible=false让精灵消失[l][r]
+[action target=1000 mode="visible" visible=true]
+visible=true让精灵显示[p]
+
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="moveby" pos=[100, 0] ease=""]
+moveby将精灵平移100。[p]
+[action target=1000 mode="moveto" pos=[300, 100] ease=""]
+moveto将精灵移动回原来的位置。[p]
+[action target=1000 mode="fadeto" opacity=128 ease=""]
+fadeto将精灵变为半透明。[p]
+[action target=1000 mode="scaleto" x=120 y=120 ease=""]
+scaleto将精灵放大为120%[p]
+[action target=1000 mode="scaleby" x=120 y=120 ease=""]
+scaleby将精灵继续放大为120%[p]
+[action target=1000 mode="scissorto" rect=[0,0,300,300] ease=""]
+scissorto将精灵剪裁到(300,300)[p]
+[action target=1000 mode="scissorby" rect=[0,0,-100,-50] ease=""]
+scissorby将精灵继续剪裁(-100,50)[p]
+[action target=1000 mode="tintto" color=0x80FFFF ease=""]
+tintto将精灵色调设置为0x80FFFF[p]
+[action target=1000 mode="tintby" r=0x80 g=0xFF b=0xFF ease="" time=0]
+tintby继续将精灵色调红色部分调整0x80（time参数必要？）[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="flipx" force=false]
+flipx将精灵左右翻转[l][r]
+[action target=1000 mode="flipx" force=false]
+再执行flipx取消左右翻转效果。[p]
+[action target=1000 mode="flipy" force=false]
+flipy将精灵上下翻转[l][r]
+[action target=1000 mode="flipy" force=false]
+再执行flipy取消上下翻转效果。[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="remove" delete=true]
+remove相当于执行remove指令，从父节点移除[l][r]
+[sprite index=1000 file="fg01_01"]
+[addto index=1000 target=basic_layer pos=[300, 100]]
+将精灵重新添加到basic_layer[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="rotateto" rotate=45 ease=""]
+rotateto将精灵旋转45度[p]
+[action target=1000 mode="rotateby" rotate=45 ease=""]
+rotateby将精灵继续旋转45度[p]
+[action target=1000 mode="rotateto" rotate=0 ease=""]
+rotateto将精灵旋转归0[p]
+//--------------------------------------------------------------------------------------------------
+[action target=1000 mode="rotatezto" rotate=45 ease=""]
+rotatezto将精灵沿z轴旋转45度[p]
+[action target=1000 mode="rotatezby" rotate=45 ease=""]
+rotatezby将精灵沿z轴继续旋转45度[p]
+[action target=1000 mode="rotatezto" rotate=0 ease=""]
+rotatezto将精灵恢复到原位[p]
+
+//--------------------------------------------------------------------------------------------------
+通过parallel,queue,start,end，还可以创建action的组合。[l][r]
+还可以使用delay, delayuntil, callback来做复杂的操作。[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
