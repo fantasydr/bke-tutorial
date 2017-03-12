@@ -8,27 +8,14 @@
 [textspeed interval=50]
 
 // image used by the following tests
-[sprite index=1000 file='BG14a']
+[sprite index=1000 file='BG14a' rect=[0,0,512,512]]
+[sprite index=2000 file='BG01a']
 
 //--------------------------------------------------------------------------------------------------
-[addto index=1000 target=basic_layer pos=[0,0]]
-在屏幕上显示一张已经创建好的图片。[l][r]
+[addto index=2000 target=basic_layer pos=[0,0]]
+[addto index=1000 target=basic_layer pos=[256,50]]
+显示背景，并添加一张图片。[l][r]
 [textspeed interval=100]
-
-//--------------------------------------------------------------------------------------------------
-[sprite index=9000 file='fg01_01']
-[effect target=1000 mode="multiply" masksp=9000 stretch=false]
-上添加multiply效果，使用9000号人物图片做叠加，也可以使用图片文件。[l][r]
-[effect target=1000 mode="clear"]
-用clear删除这个图片上所有的效果。[p]
-
-//--------------------------------------------------------------------------------------------------
-[sprite index=9000 file='fg01_01']
-[effect target=1000 mode="add" masksp=9000 stretch=false]
-添加add效果，使用9000号人物图片做叠加，也可以使用图片文件。[l][r]
-[effect target=1000 mode="clear"]
-用clear删除这个图片上所有的效果。[p]
-
 
 //--------------------------------------------------------------------------------------------------
 [effect target=1000 mode="mono" mono=0x800000]
@@ -46,18 +33,181 @@
 [effect target=1000 mode="clear"]
 用clear删除这个图片上所有的效果。[p]
 //--------------------------------------------------------------------------------------------------
-[effect target=1000 mode="mask" mask="18.jpg"]
-添加mask效果，使用18.jpg做遮罩，也可用sprite。[l][r]
+[effect target=1000 mode="gamma" down=0x000000 up=0x808080]
+添加gamma效果，矫正图片gamma值[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="invert"]
+添加invert效果，图片反色[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="BC" bright=20]
+添加BC效果，调整图片亮度[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="BC" contrast=-50]
+添加BC效果，调整图片对比度[l][r]
 [effect target=1000 mode="clear"]
 用clear删除这个图片上所有的效果。[p]
 
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="blur" radius=2.0]
+添加blur效果，图片模糊radius=2.0[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="sharpen" radius=2.0]
+添加sharpen效果，图片锐化radius=2.0[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="edge" radius=2.0]
+添加edge效果，边缘加强radius=2.0[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="fill" color=0xFF0000]
+添加fill效果，使用红色填充图像。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
 
+//--------------------------------------------------------------------------------------------------
+[sprite index=3000 file="stencil"]
+[effect target=1000 mode="stencil" rule=3000]
+添加stencil效果，模板精灵透明度部分被镂空。[l][r]
+接下来可以用action操作模板精灵的位置，[l]
+[action mode="shake" target=3000 range=30 time=100 times=10]
+比如shake……[r]
+[waitallaction]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+
+//
+接下来的叠加效果，都可以使用sprite作为叠加源。[l][r]
+如果需要重用被叠加的sprite，目前必须对其执行remove指令。[l][r]
+这是因为作为叠加源的sprite处于不显示状态，且未被删除。[l][r]
+强制缩放的叠加效果无法操作sprite，直接使用图片文件可以简化脚本。[p]
+
+//--------------------------------------------------------------------------------------------------
+[sprite index=3001 file="fg01_01"]
+[effect target=1000 mode="multiply" masksp=3001 stretch=false]
+添加multiply效果，使用人物图片做叠加，无缩放。[l][r]
+接下来可以用action操作模板精灵的位置，[l]
+[action mode="shake" target=3001 range=30 time=100 times=10]
+比如shake……[r]
+[waitallaction]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[sprite index=3002 file="fg01_01"]
+[effect target=1000 mode="add" masksp=3002 stretch=false]
+添加add效果，使用人物图片做叠加，无缩放。[l][r]
+接下来可以用action操作模板精灵的位置，[l]
+[action mode="shake" target=3002 range=30 time=100 times=10]
+比如shake……[r]
+[waitallaction]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="mask" mask="diamond"]
+添加mask效果，使用渐变图片做遮罩效果。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="darken" mask='fg01_01']
+添加darken效果，变暗，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="colorburn" mask='fg01_01']
+添加colorburn效果，颜色加深，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="linearburn" mask='fg01_01']
+添加linearburn效果，线性加深，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="lighten" mask='fg01_01']
+添加lighten效果，变亮，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="screen" mask='fg01_01']
+添加screen效果，滤色，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="colordodge" mask='fg01_01']
+添加colordodge效果，颜色减淡，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="lineardodge" mask='fg01_01']
+添加lineardodge效果，线性减淡，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="overlay" mask='fg01_01']
+添加overlay效果，叠加，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="softlight" mask='fg01_01']
+添加softlight效果，柔光，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="hardlight" mask='fg01_01']
+添加hardlight效果，强光，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="vividlight" mask='fg01_01']
+添加vividlight效果，亮光，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="linearlight" mask='fg01_01']
+添加linearlight效果，线性光，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="pinlight" mask='fg01_01']
+添加pinlight效果，点光，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="hardmix" mask='fg01_01']
+添加hardmix效果，实色混合，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="difference" mask='fg01_01']
+添加difference效果，差值，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="exclusion" mask='fg01_01']
+添加exclusion效果，排除，使用人物图片做叠加。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
+//--------------------------------------------------------------------------------------------------
+[effect target=1000 mode="normal" mask='fg01_01']
+添加normal效果，普通叠加效果，超出部分会被剪裁。[l][r]
+[effect target=1000 mode="clear"]
+用clear删除这个图片上所有的效果。[p]
 
 
 //--------------------------------------------------------------------------------------------------
 [layer index=5000 width=500 height=500 color=0xc0c0c0 opacity=255]
 [addto index=5000 target=basic_layer pos=[150,50]]
 添加一张灰色的背景layer[l][r]
+[sprite index=9000 file="fg01_01"]
 [addto index=9000 target=5000 pos=[200,100]]
 在layer上加一张图片，超出范围的部分也有显示[l][r]
 [effect target=5000 mode="scissor"]
