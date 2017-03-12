@@ -1,10 +1,11 @@
 ﻿*main
 
-// 加上描边效果
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
 [textstyle stroke=true strokecolor=0x000000]
-// 加上指针
-[animate index=4000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
-[textcursor index=4000 follow=true]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=50]
 
 //--------------------------------------------------------------------------------------------------
 [sprite index=1000 file="BG01a"]
@@ -48,7 +49,7 @@
 [removeall index=1000 recursive=true]
 用removeall递归移除所有子对象，图像不可见，层级关系也消失[l][r]
 [addto index=2001 target=1000 pos=[0, 100]]
-重新add到basic_layer，只有黑色层[l][r]
+重新add到basic_layer，只有黑色层[p]
 接下来删除所有背景层上的图像，并清除资源[l][r]
 [removeall index=1000 recursive=true delete=true]
 [addto index=2001 target=1000]
@@ -74,5 +75,12 @@
 #log(f.bg01aex);
 用info指令获取了图片信息，打印在控制台上[p]
 //--------------------------------------------------------------------------------------------------
-spriteopt和particle将和其他UI控件一起演示[l][r]
+[textsprite index=7000 text="Text文字精灵" color=0xFF0000]
+[richtextsprite index=7001 text="[b]Richtext[b][#FF0000]文[#]字精灵" color=0x0000FF]
+[addto index=7000 target=basic_layer pos=[10,50]]
+[addto index=7001 target=basic_layer pos=[10,80]]
+创建两个文字精灵，将文字转换为Sprite，[r]
+这些Sprite可被用于接受index作为输入的指令中，例如buttonex。[p]
+//--------------------------------------------------------------------------------------------------
+spriteopt可以禁用sprite，将和其他UI控件一起演示[l][r]
 演示结束[l]

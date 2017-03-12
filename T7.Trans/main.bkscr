@@ -204,3 +204,6 @@ trans之前[l][r][pretrans index=5000]
 pageturn模式, from=bottomright，右下翻页[r]
 [waittrans index=5000 canskip=true]
 trans结束[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
