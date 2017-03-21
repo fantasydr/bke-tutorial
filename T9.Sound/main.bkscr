@@ -1,0 +1,61 @@
+﻿*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+bgm播放背景音乐，默认的channel是常量bgm=-1，默认为循环播放。[r]
+[bgm file="bgm03_Sweet_Dream" loop=true vol=100 fadein=2000 loopto=0]
+fadein可以控制淡入的时间，waitfade等待淡入完成，也可以跳过等待[r]
+[waitfade channel=bgm canskip=true]
+bgm淡入结束，播放开始，waitbgm等待bgm播放结束[r]
+[waitbgm canskip=true]
+点击跳过的话，即使loop=true也会让bgm停止播放。[p]
+
+//--------------------------------------------------------------------------------------------------
+接下来，用se播放猫咪音效，可以设置channel，同时播放多个[l][r]
+[se file="kitten-3" channel=3 loop=false vol=100 fadein=0]
+[se file="kitten-6" channel=6 loop=false vol=100 fadein=0]
+应该听到2声猫叫，来自不同的channel[r]
+[waitse channel=3 canskip=false]
+[waitse channel=6 canskip=false]
+使用waitse等待se播放完成[p]
+
+//--------------------------------------------------------------------------------------------------
+接下来使用voice播放语音，默认的channel是常量voice=-2[l][r]
+使用waitvoice等待语音播放结束[r]
+[voice file="helloworld" vol=100]
+[waitvoice canskip=false]
+语音播放结束[p]
+
+//--------------------------------------------------------------------------------------------------
+接下来同时在1号和2号channel播放声音[r]
+[se file="bgm03_Sweet_Dream" channel=1 loop=false vol=100 fadein=5000]
+[se file="helloworld" channel=2 loop=true vol=100 fadein=1000]
+点击停止2号channel，并让其淡出[l][r]
+[stop channel=2 fadeout=2000]
+[waitse channel=2 canskip=false]
+2号channel声音停止[p]
+[pause channel=1]
+暂停1号channel的声音[l][r]
+[resume channel=1]
+恢复1号channel的声音[p]
+[volume channel=1 get=f.volume]
+#log(f.volume)
+#f.volume=30
+[volume channel=1 set=f.volume]
+降低1号channel的音量[l][r]
+#f.volume=100
+[volume channel=1 set=f.volume]
+提升1号channel的音量[l][r]
+淡出1号channel的声音，并等待它播放结束。[r]
+[fade channel=1 time=1000 to=0 stop=true]
+[waitse channel=1 canskip=false]
+声音播放结束[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
