@@ -1,0 +1,9 @@
+﻿*register
+//all macros must be imported or defined here
+@import file="macro_main"
+@macro name="lr"
+@return
+
+*lr
+[l][r]
+@return

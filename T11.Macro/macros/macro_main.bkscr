@@ -1,0 +1,12 @@
+﻿*register
+// import another macro from file
+@import file="macro_cursor"
+
+// create macro in this file
+@macro name="create_textwindow"
+@return
+
+*create_textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+@return

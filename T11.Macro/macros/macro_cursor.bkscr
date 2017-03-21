@@ -1,0 +1,10 @@
+﻿*register
+// create macro in this file with 2 parameters
+@macro name="create_cursor" index filename
+@return
+
+*create_cursor
+[animate index=index file=filename mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=index follow=true]
+[textspeed interval=50]
+@return
