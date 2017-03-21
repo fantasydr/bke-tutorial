@@ -1,0 +1,77 @@
+﻿*if_test
+[if exp="f.test==1"]
+如果f.test是1[l][r]
+[elseif exp="f.test==2"]
+如果f.test是2[l][r]
+[else]
+否则显示这句话[l][r]
+[endif]
+@return
+
+*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=50]
+
+//--------------------------------------------------------------------------------------------------
+[eval exp="f.value=100"]
+使用eval直接执行表达式。[l][r]
+[eval exp="log(f.value)"]
+f.value的值会打印在log里面。[p]
+
+//--------------------------------------------------------------------------------------------------
+接下来jump跳转到code_1，后续的代码不会被执行。[l][r]
+[jump label="*code_1"]
+
+*code_2
+这里是code_2，因为被call调用，必须return[p]
+@return
+
+*code_1
+这里是code_1标签，如果没有指定file，标签必须在同一个文件中。[l][r]
+接下来call跳转到code_2，后续的代码会在return之后继续执行[l][r]
+[call label=*code_2]
+return之后继续执行此处代码。[p]
+
+//returnto is not used by NVL
+//tablegoto is not used by NVL
+
+//--------------------------------------------------------------------------------------------------
+通过if_test标签来测试if指令，标签定义在main之前[p]
+#f.test=1;
+[call label=*if_test]
+#f.test=2;
+[call label=*if_test]
+#f.test=0;
+[call label=*if_test]
+if测试完毕，接下来继续执行[p]
+
+//--------------------------------------------------------------------------------------------------
+#f.range=[2, 4, 6, 8, 10];
+#f.loop=0;
+使用for指令做多次循环[p]
+[for var=f.loop range=f.range]
+[if exp="f.loop==2"]
+继续执行循环[l][r]
+[continue]
+[elseif exp="f.loop>6"]
+中断循环[l][r]
+[break]
+[endif]
+显示一段话[l][r]
+[next]
+只有f.loop等于4,6的时候，显示一段话。[p]
+
+//--------------------------------------------------------------------------------------------------
+使用wait指令等待1s，系统不是stable状态……[r]
+[wait time=1000]
+等待结束。接下来等待5s，可以点击跳过……[r]
+[wait time=5000 canskip=true]
+等待结束。[p]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
