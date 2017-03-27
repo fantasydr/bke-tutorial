@@ -1,0 +1,68 @@
+﻿*show_history
+##
+log("历史记录enabled：" + History.enabled);
+log("历史记录start：" + History.startIndex);
+log("历史记录cur：" + History.curIndex);
+log("历史记录next：" + History.nextIndex);
+log("历史记录mode：" + History.recordMode);
+log("历史记录总数：" + History.count);
+log("历史记录maxChars：" + History.maxChars);
+##
+@return
+
+*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------	
+//group is not used by NVL
+//endgroup is not used by NVL
+
+//--------------------------------------------------------------------------------------------------
+//idlesp is not used by NVL
+
+//--------------------------------------------------------------------------------------------------
+[call label=*show_history]
+显示的文字会被自动记录到History模块中。[l][r][call label=*show_history]
+[history output=false]
+关闭历史记录，则这段话不会记录到History里面。[l][r][call label=*show_history]
+[history output=true]
+打开后，这段话将记录到History里面。[l][r][call label=*show_history]
+历史记录信息可以在log中查看。[p]
+
+//--------------------------------------------------------------------------------------------------
+[layer index=3001 color="0x909090" width=1024 height=768 opacity=255]
+[addto index=3001 target=basic_layer]
+接下来创建屏幕截图到999号精灵，并保存。[l][r]
+[screenshot index=999 target=basic_layer width=320 height=180]
+[savetoimage index=999 file="screenshot.png"]
+999号精灵被保存到screenshot.png。[l][r]
+[remove index=3001]
+[sprite index=3000 file="screenshot.png"]
+[addto index=3000 target=basic_layer pos=[100,100]]
+显示刚刚保存的截图。[p]
+
+//--------------------------------------------------------------------------------------------------
+//fileexist is not used by NVL, but use fileExist()
+在此处创建存档。[l][r]
+[savepoint]
+接下来存档到999号。[l][r]
+[save index=999 str="Saved Test Case"]
+接下来读取999号存档。[l][r]
+[load index=999]
+
+//--------------------------------------------------------------------------------------------------
+//watcher is not used by NVL
+//stopwatcher is not used by NVL
+//preload is not used by NVL	
+
+//--------------------------------------------------------------------------------------------------
+[quit]
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
