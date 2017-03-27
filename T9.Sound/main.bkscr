@@ -45,11 +45,11 @@ bgm淡入结束，播放开始，waitbgm等待bgm播放结束[r]
 [resume channel=1]
 恢复1号channel的声音[p]
 [volume channel=1 get=f.volume]
-#log(f.volume)
-#f.volume=30
+#log(f.volume);
+#f.volume=30;
 [volume channel=1 set=f.volume]
 降低1号channel的音量[l][r]
-#f.volume=100
+#f.volume=100;
 [volume channel=1 set=f.volume]
 提升1号channel的音量[l][r]
 淡出1号channel的声音，并等待它播放结束。[r]
