@@ -1,0 +1,107 @@
+﻿//--------------------------------------------------------------------------------------------------
+// onenter等事件可以接受一个字符串作为参数，表明事件的名称。该事件已经被event命令注册过。
+// 或者用一个数组注册一个控件专用的临时事件，数组的原型为[block, file, type, exp, param, extra]，
+// 类型分别为字符串、字符串、字符串或数值、字符串、字典型。file默认在本文件，type不可缺省（详情见14），
+// exp指在跳转之后执行的parser表达式，默认为空串，
+// param指传递给回调的参数。事件的参数只有在type不为"jump"时才有效，事件的参数指在call入事件的label时参数名所对应的变量已经赋值为参数值。
+// extra为一个字典，定义该事件的其余属性，目前有condition（字符串，触发条件时执行，只有结果为true时事件才真正被触发）、ignore（布尔值）是否忽略相同的事件。
+
+// 事件的type值可为"jump"(0)，"callback"（1），"call"（2）。
+// jump指事件触发时jump至某个标签。callback和call都指事件发生时call到某个标签，区别在于：
+// call和callback的ignore=true时，若当前已经有正在处理或等待处理的该事件（标签，文件名和事件类型相同），则忽略此次触发。
+// jump事件的ignore=true时，触发一次后该事件的enable将被自动设为false。从而不会第二次触发直到手动再启用。
+// call事件执行中可以触发其他事件。callback事件执行时会阻塞其余所有类型的事件（包括jump）。
+
+// 所有事件相关指令
+//[event *name label file type="callback" exp param ignore=true enable=true condition="" stable=true]
+//[deleteevent name]
+//[sendevent name param]
+//[sendsystemevent name param]
+
+// 所有系统事件名及触发条件
+// mousedown	鼠标按下时，先于一切精灵的鼠标处理事件
+// mouseup		鼠标弹起时（或单指点击弹起时），先于一切精灵的鼠标处理事件
+// mousewheel	鼠标滚轮滚动时 nvl
+// click		鼠标单击时，文字层接受该点击事件
+// rclick		鼠标右键弹起或鼠标长按或escape键单击时 nvl
+// swapup		鼠标上滑抬起后 nvl
+// swapdown		鼠标下滑抬起后 nvl
+// swapleft		鼠标左滑抬起后 nvl
+// swapright	鼠标右滑抬起后 nvl
+// doubletouch	未实装
+// tripletouch	未实装
+// keydown		有按键被按下时
+// keyup		有按键弹起时，在space、enter事件之后触发
+// space		空格键弹起时，且未被文本输入框拦截
+// enter		回车键弹起时，且未被文本输入框拦截
+// onload		读取存档成功完成时
+// exit			点击窗口的关闭按钮时
+
+// 所有指令对应的事件名称
+// button/buttonex: onenter, onleave, onclick
+// slider/sliderex/watcher/checkbox/checkboxex: onchanged
+// inputbox: onchanged, onok
+// buyitem/queryitem/check: onsuccess, onfailure
+// load: onauthfail
+//--------------------------------------------------------------------------------------------------
+
+*rclick_call
+[deleteevent name="rclick"]
+[er]
+如果此时右键点击，会再次进入call标签，因此我们一开始就删掉rclick事件。[l][r]
+右键触发的call事件，可以继续调用其他事件[l][r]
+一般用来实现较复杂的子系统，例如养成系统，各种结局。[p]
+[event name="rclick" label=*rclick_jump type="jump"]
+接下来右键将跳转到rclick_jump标签[l][r]
+如果不点击右键，则返回waitbutton指令处。[l][r]
+@return
+
+*rclick_callback
+[er]
+右键触发的callback事件，阻塞其他事件[l][r]
+一般用于实现一小段功能代码，例如播放音乐，修改图片等。[p]
+如果此时触发右键点击，调用会被保存在队列中。[l][r]
+[event name="rclick" label=*rclick_call type="call"]
+重置rclick到call的逻辑，接下来返回waitbutton原处。[l][r]
+@return
+
+*main
+
+// make a simple textwindow
+[textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
+[textstyle stroke=true strokecolor=0x000000]
+[animate index=1000 file="LineBreak_a" mode="horizontal" frame=16 interval=80 loop="bouncing"]
+[textcursor index=1000 follow=true]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+事件event，分为系统事件(systemevent)和普通事件(event)。[l][r]
+系统事件被系统自动定义，不可以删除。[l][r]
+普通事件可以由用户定义，通过deleteevent指令删除。[l][r]
+二者可以使用相同的名称，同名的普通事件会覆盖系统事件。[p]
+
+系统事件多为用户鼠标或按键操作引发的事件，例如鼠标点击，或者ESC键按下等。[l][r]
+使用sendevent触发事件，如果使用系统事件名，未被覆盖时会触发同名系统事件。[l][r]
+使用sendsystemevent触发系统事件，忽略同名的普通事件。[p]
+
+系统事件enter, space和click都会触发文本框的快进等。[l][r]
+系统事件keydown，keyup以及手柄的操作会发送给处于焦点的sprite。[l][r]
+其他系统事件没有默认的处理方式。[l][r]
+一旦创建了同名的普通事件，则会覆盖这些默认行为，除非调用sendsystemevent。[p]
+
+所有UI组件都自带事件系统，不必使用event指令来实现。[l][r]
+例如button的onclick和onenter和onleave，代表按钮点击，悬停和失去焦点的情况。[l][r]
+slider，checkbox和inputbox都有onchanged事件，来响应用户输入。[l][r]
+load指令和内购商店指令也有对应的事件。[p]
+
+//--------------------------------------------------------------------------------------------------
+接下来注册'rclick'事件，测试三种调用方式。[l][r]
+waitbutton会让脚本停止运行，等待各种事件的触发。[l][r]
+[event name="rclick" label=*rclick_callback type="callback"]
+[waitbutton]
+*rclick_jump
+此处的逻辑，必须用jump触发[p]
+
+
+//--------------------------------------------------------------------------------------------------
+演示结束[l]
