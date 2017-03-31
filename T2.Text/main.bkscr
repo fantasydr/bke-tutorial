@@ -78,8 +78,8 @@ p指令等待点击换页[p]
 [textwindow pos=[20,20] ]
 修改文字窗口pos[l][r]
 
-[textwindow rect=[0,0,300,200] ]
-修改窗口rect，此指令会清空前文[l][r]
+[textwindow rect=[0,0,120,450] ]
+修改窗口的rect，指令【会】清空前文[l][r]
 换行会受到文字窗口的影响，窗口变窄会导致提前换行。[l][r]
 
 [textwindow xinterval=10 yinterval=10]
