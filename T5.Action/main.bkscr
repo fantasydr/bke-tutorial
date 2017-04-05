@@ -22,7 +22,7 @@ jump让精灵执行跳跃动作（time参数必要）[p]
 [action target=1000 mode="shake" time=100 range=10 vertical=false times=10]
 shake让精灵执行震动动作（time参数必要）[p]
 [action target=1000 mode="quake" time=1000 rangex=100 rangey=100 speed=1000]
-shake让精灵执行震动动作（time参数必要）[p]
+quake让精灵执行震动动作（time参数必要）[p]
 [action target=1000 mode="shaky3d" time=1000 hnum=10 vnum=10 offset=5 speed=1000]
 shaky3d将精灵做3d网格震动（time参数必要）[p]
 //--------------------------------------------------------------------------------------------------
