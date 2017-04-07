@@ -13,6 +13,22 @@
 [sprite index=9000 file='fg01_01']
 
 //--------------------------------------------------------------------------------------------------
+[removeall index=basic_layer]
+[layer index=5000 width=1024 height=768 color=0x000000 opacity=255]
+[addto index=5000 target=basic_layer pos=[0,0]]
+在屏幕上添加空白的layer，当作trans的背景层。[r]
+接下来测试各种不同的trans模式。[p]
+[textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+[removeall index=5000]trans之前[l][r][pretrans index=5000]
+[addto index=1000 target=5000 pos=[0,0]]
+[trans index=5000 mode='ripple' time=3000 center=[-1,-1] speed=6 rwidth=128 maxdrift=24 roundness=100]
+ripple模式, 使用默认参数[r]
+[waittrans index=5000 canskip=true]
+trans结束[p]
+
+//--------------------------------------------------------------------------------------------------
 [addto index=1000 target=basic_layer pos=[0,0]]
 在屏幕上显示一张已经创建好的图片。[l][r]
 接下来对屏幕执行pretrans并修改画面。[l][r]
@@ -53,6 +69,14 @@ trans结束[p]
 在屏幕上添加空白的layer，当作trans的背景层。[r]
 接下来测试各种不同的trans模式。[p]
 [textspeed interval=100]
+
+//--------------------------------------------------------------------------------------------------
+[removeall index=5000]trans之前[l][r][pretrans index=5000]
+[addto index=1000 target=5000 pos=[0,0]]
+[trans index=5000 mode='ripple' time=3000 center=[-1,-1] speed=6 rwidth=128 maxdrift=24 roundness=100]
+ripple模式, 使用默认参数[r]
+[waittrans index=5000 canskip=true]
+trans结束[p]
 
 //--------------------------------------------------------------------------------------------------
 [removeall index=5000]trans之前[l][r][pretrans index=5000]
