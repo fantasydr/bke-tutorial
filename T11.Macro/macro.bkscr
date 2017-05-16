@@ -2,8 +2,24 @@
 //all macros must be imported or defined here
 @import file="macro_main"
 @macro name="lr"
+@macro name="test_returnto" label file
+@macro name="test_jump_inmacro" label file
 @return
 
 *lr
 [l][r]
 @return
+
+*test_jump_inmacro
+跳转到当前macro所在文件，macro会继续执行[lr]
+@jump label=*current_macro
+jump之后，此处不会被执行[p]
+*current_macro
+如果return之前jump到其他文件，macro会自动结束。[lr]
+@jump label=label file=file
+jump之后，此处不会被执行[p]
+@return
+
+*test_returnto
+返回到指定的文件和标签[lr]
+@returnto label=label file=file
