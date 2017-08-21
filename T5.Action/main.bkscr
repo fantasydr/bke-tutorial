@@ -1,4 +1,10 @@
-﻿*main
+﻿*action_callback
+跳转到此处显示tf.value的值
+@text text=tf.value
+[l][r]
+[return]
+
+*main
 
 // make a simple textwindow
 [textwindow color=0x005AB5 opacity=196 pos=[0,568] rect=[20, 20, 1024, 200]]
@@ -12,6 +18,9 @@ action指令可以操作sprite的各个属性，例如平移或旋转。[l][r]
 [sprite index=1000 file="fg01_01"]
 [addto index=1000 target=basic_layer pos=[300, 100]]
 添加一个图片精灵。[p]
+
+@jump label=*quick
+*quick // 修改标签的位置跳到具体的代码段
 
 //--------------------------------------------------------------------------------------------------
 [action target=1000 mode="stretch" lt=[10,10] rt=[280,50] rb=[200,480] lb=[30,400] ease=""]
@@ -82,7 +91,93 @@ rotatezto将精灵恢复到原位[p]
 
 //--------------------------------------------------------------------------------------------------
 通过parallel,queue,start,end，还可以创建action的组合。[l][r]
-还可以使用delay, delayuntil, callback来做复杂的操作。[p]
+[action mode="queue"]
+[action mode="moveby" pos=[200, 0] ease="" time=1000]
+[action mode="moveby" pos=[0, -200] ease="" time=1000]
+创建顺序执行的动作队列，先右移后上移。[l][r]
+[action mode="start" target=1000]
+开始执行该动作队列。[waitaction index=1000 canskip=true]
+[l][r]
+[action target=1000 mode="moveto" pos=[300, 100] ease=""]
+[action target=1000 mode="rotateto" time=1000 rotate=0 times=1]
+恢复精灵位置[p]
+
+[action mode="parallel"]
+[action mode="moveby" pos=[200, 0] ease="" time=1000]
+[action mode="moveby" pos=[0, -200] ease="" time=1000]
+创建并行执行的动作队列，右移和上移同时进行，变为斜向运动。[l][r]
+[action mode="start" target=1000]
+开始执行该动作队列。[waitaction index=1000 canskip=true]
+[l][r]
+[action target=1000 mode="moveto" pos=[300, 100] ease=""]
+[action target=1000 mode="rotateto" time=1000 rotate=0 times=1]
+恢复精灵位置[p]
+
+//--------------------------------------------------------------------------------------------------
+queue和parallel可以嵌套，用end来标记结束位置。[l][r]
+[action mode="queue"]
+[action mode="parallel"]
+[action mode="moveby" pos=[200, 0] ease="" time=500]
+[action mode="moveby" pos=[0, -200] ease="" time=500]
+[action mode="end"]
+[action mode="queue"]
+[action mode="moveby" pos=[-200, 0] ease="" time=500]
+[action mode="moveby" pos=[0, 200] ease="" time=500]
+[action mode="end"]
+设定结束后请使用start来开始队列的执行。[l][r]
+[action mode="start" target=1000 times=3]
+start指令还可以指定times参数，多次或永久重复执行动作。[r]
+（times参数貌似有bug，实际执行次数比参数少一次）
+[waitaction index=1000 canskip=true][p]
+
+//--------------------------------------------------------------------------------------------------
+使用stopaction结束一个队列播放的动作，会强制让动作播放完毕。[l][r]
+在waitaction时候canskip=true，且用户点击跳过，也会导致动作播放完毕。[l][r]
+[action mode="queue"]
+[action mode="parallel"]
+[action mode="moveby" pos=[400, 300] ease="" time=1000]
+[action mode="rotateby" rotate=360 ease="" time=1000]
+[action mode="end"]
+[action mode="parallel"]
+[action mode="moveby" pos=[-400, -300] ease="" time=1000]
+[action mode="rotateby" rotate=360 ease="" time=1000]
+[action mode="end"]
+[action mode="start" target=1000 times=-1]
+点击后action被强制停止。[l][r]
+[stopaction index=1000]
+因为动作结束在原位，停止后精灵归位。[l][p]
+
+//--------------------------------------------------------------------------------------------------
+还可以使用delay, delayuntil, callback来做复杂的操作。[l][r]
+delay必须放在动作队列中使用，在队列中等待一定时间。[l][r]
+[action mode="queue"]
+[action mode="moveby" pos=[200, 0] ease="" time=500]
+[action mode="delay" time=1000]
+[action mode="rotateby" rotate=360 ease="" time=500]
+[action mode="start" target=1000]
+移动后等待1秒再旋转。[waitaction index=1000]
+[l][p]
+
+delayuntil必须放在动作队列中使用，在队列中等待某个表达式为真。[l][r]
+表达式的上下文由param字典设定，且可以使用index参数，系统设为target的索引。[l][r]
+[action mode="queue"]
+[action mode="moveby" pos=[-200, 0] ease="" time=500]
+[action mode="delayuntil" exp="tf.value==index+input" param=%["input"=>100]]
+[action mode="rotateby" rotate=360 ease="" time=500]
+[action mode="start" target=1000]
+移动后等待tf.value==index+input，再执行旋转。[l][r]
+#tf.value=1000+100;
+执行脚本后，条件成立，开始旋转[waitaction index=1000][p]
+
+callback必须放在动作队列中使用，在动作队列中跳转到其他标签。[l][r]
+如果设置wait参数为true，可以等待标签return之后再执行后面的动作。[l][r]
+[action mode="queue"]
+[action mode="moveby" pos=[-200, 0] ease="" time=500]
+[action mode="callback" file="main" label=*action_callback exp="tf.value=input" param=%["input"=>100] wait=true]
+[action mode="rotateby" rotate=360 ease="" time=500]
+[action mode="start" target=1000]
+[waitaction index=1000]
+完成旋转后动作结束[p]
 
 //--------------------------------------------------------------------------------------------------
 演示结束[l]
